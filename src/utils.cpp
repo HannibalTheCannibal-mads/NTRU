@@ -11,18 +11,56 @@
 #include <openssl/buffer.h>
 
 // Modular inverse
-int invModQ(int d, int q) {
-    d = ((d % q) + q) % q; // Now d is in [0, q-1]
-    if (d == 0) return -1; // 0 has no inverse
-    for (int i = 1; i < q; ++i) {
-        if ((d * i) % q == 1) {
-            return i;
-        }
+int invModQ(int a, int q) {
+    int t = 0, newt = 1;
+    int r = q, newr = a;
+    while (newr != 0) {
+        int quotient = r / newr;
+        int temp = t;
+        t = newt;
+        newt = temp - quotient * newt;
+        temp = r;
+        r = newr;
+        newr = temp - quotient * newr;
     }
-    return -1; // Not found
+    if (r > 1) return -1; // No inverse
+    if (t < 0) t += q;
+    return t;
 }
-
-
+// Modular inverse for negative numbers
+int invModQ_neg(int a, int q) {
+    int t = 0, newt = 1;
+    int r = q, newr = a;
+    while (newr != 0) {
+        int quotient = r / newr;
+        int temp = t;
+        t = newt;
+        newt = temp - quotient * newt;
+        temp = r;
+        r = newr;
+        newr = temp - quotient * newr;
+    }
+    if (r > 1) return -1; // No inverse
+    if (t < 0) t += q;
+    return t % q;
+}
+// Modular inverse for positive numbers
+int invModQ_pos(int a, int q) {
+    int t = 0, newt = 1;
+    int r = q, newr = a;
+    while (newr != 0) {
+        int quotient = r / newr;
+        int temp = t;
+        t = newt;
+        newt = temp - quotient * newt;
+        temp = r;
+        r = newr;
+        newr = temp - quotient * newr;
+    }
+    if (r > 1) return -1; // No inverse
+    if (t < 0) t += q;
+    return t % q;
+}
 // Serialize coefficients to binary blob (signed 2 bytes per coeff)
 std::vector<unsigned char> coeffs_to_blob(const std::vector<int>& coeffs) {
     std::vector<unsigned char> blob;

@@ -18,7 +18,7 @@ public:
 
     bool operator==(const PolyModQ& other) const;
     bool operator!=(const PolyModQ& other) const;
-
+    PolyModQ inverse(int Nval = 0, bool debug = false) const;
     PolyModQ operator-() const;
     PolyModQ operator+(const PolyModQ& other) const;
     PolyModQ operator+(int other) const;

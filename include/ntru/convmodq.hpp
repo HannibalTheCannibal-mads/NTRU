@@ -15,9 +15,10 @@ public:
 
     ConvModQ();
     ConvModQ(const std::vector<int>& coef, int q = 3, int N_ = -1);
-
     friend std::ostream& operator<<(std::ostream& os, const ConvModQ& p);
     ConvPoly centerLift() const;
+    ConvModQ operator+(const ConvModQ& other) const;
+    ConvModQ operator-(const ConvModQ& other) const;
     ConvModQ operator*(const ConvModQ& other) const;
     ConvModQ operator*(const ConvPoly& other) const; // If you implement this
     ConvModQ operator*(int other) const;
@@ -27,7 +28,7 @@ public:
     ConvModQ operator/(int other) const;
 
     ConvModQ modQ(int q_) const;
-    ConvModQ inverse(int N_ = -1, bool debug = false) const;
+    ConvModQ inverse(int Nval = -1, bool debug = false) const;
 };
 
 #endif // NTRU_CONVMODQ_HPP
