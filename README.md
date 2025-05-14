@@ -45,7 +45,10 @@ This project implements polynomial arithmetic and modular inversion in the ring 
 │   └── utils.cpp
 ├── test
 │   └── test_ntru.cpp
-└── test_convmodq_inverse 
+├── test_convmodq_inverse
+└── t.py
+
+8 directories, 26 files
 ```
 
 
